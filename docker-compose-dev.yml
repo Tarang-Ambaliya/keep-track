@@ -1,0 +1,25 @@
+services:
+  postgresql:
+    container_name: keeptrack-postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - ./keeptrack/.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - keeptrack
+
+networks:
+  keeptrack:
+    name: keeptrack
+    driver: bridge
+
+volumes:
+  postgres:
+    name: keeptrack-postgresql
